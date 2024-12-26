@@ -11,5 +11,6 @@ namespace GamesForum.Data
         {
         }
         public DbSet<GamesForum.Models.Tag> Tag { get; set; } = default!;
+        public DbSet<GamesForum.Models.Article> Article { get; set; } = default!;
     }
 }

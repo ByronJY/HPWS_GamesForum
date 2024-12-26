@@ -15,7 +15,8 @@ namespace GamesForum.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            // return View();
+            return RedirectToAction("Index", "Articles", new { area = "" });
         }
 
         public IActionResult Privacy()
