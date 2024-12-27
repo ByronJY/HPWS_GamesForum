@@ -1,0 +1,89 @@
+﻿@model List<GamesForum.Models.SearchResultViewModel>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<div class="container">
+    <!-- 搜尋列 -->
+    <form method="get" action="/Home/Search">
+        <div class="input-group mb-4">
+            <input type="text" class="form-control" name="query" placeholder="Search..." />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    <!-- 圖片輪播 -->
+    <div id="carouselExampleIndicators" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/images/pic1.png" class="d-block w-100" alt="..." style="width: 500px; height: 700px;">
+            </div>
+            <div class="carousel-item">
+                <img src="/images/pic2.png" class="d-block w-100" alt="..." style="width: 500px; height: 700px;">
+            </div>
+            <div class="carousel-item">
+                <img src="/images/pic3.png" class="d-block w-100" alt="..." style="width: 500px; height: 700px;">
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+    <!-- 圖片資訊 -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="border-bottom: 2px solid #dee2e6;">
+                    <!-- 控制圖片與細節之間的間隔 -->
+                    <a href="https://wutheringwaves.kurogames.com/zh-tw/main/news/detail/1796">
+                        <img src="/images/pic1.png" alt="Image 2" width="300" class="img-fluid">
+                    </a>
+                </td>
+                <td style="border-bottom: 2px solid #dee2e6;">
+                    《鳴潮》2.0版本前瞻特別通訊現已結束。漂泊者可透過下方圖片，回顧本次前瞻特別通訊的精彩內容！
+                </td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 2px solid #dee2e6;">
+                    <a href="https://hsr.hoyoverse.com/zh-tw/news/127591">
+                        <img src="/images/pic2.png" alt="Image 2" width="300" class="img-fluid">
+                    </a>
+                </td>
+                <td style="border-bottom: 2px solid #dee2e6;">
+                    「只要彼此掛念，總有重逢之時。你說對嗎，恩公？」
+                </td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 2px solid #dee2e6;">
+                    <a href="https://genshin.hoyoverse.com/zh-tw/news/detail/127649">
+                        <img src="/images/pic3.png" alt="Image 3" width="300" class="img-fluid">
+                    </a>
+                </td>
+                <td style="border-bottom: 2px solid #dee2e6;">
+                    納塔見證了無數星辰的起落，而這其中必有那輪周而復始的烈陽。
+                    這讓這片土地從不缺少溫暖，以及生命的希望。
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
