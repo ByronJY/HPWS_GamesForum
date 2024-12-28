@@ -18,7 +18,7 @@
     <div id="posts">
         
     @foreach (var item in Model) {
-        <a class="card mb-4 shadow-lg text-decoration-none" asp-action="Details" asp-route-id="@item.ArticleId">
+        <a class="card mb-4 shadow-lg text-decoration-none border-0" asp-action="Details" asp-route-id="@item.ArticleId">
             <div class="card-header bg-secondary text-white">@Html.DisplayFor(modelItem => item.UserId)</div>
             <div class="card-body">
                 <h5 class="card-title text-black">@Html.DisplayFor(modelItem => item.Title)</h5>
