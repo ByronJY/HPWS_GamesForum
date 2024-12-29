@@ -7,12 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GamesForum.Data;
 using GamesForum.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 
 namespace GamesForum.Controllers
 {
     public class ArticlesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        
 
         public ArticlesController(ApplicationDbContext context)
         {
@@ -22,7 +26,14 @@ namespace GamesForum.Controllers
         // GET: Articles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Article.ToListAsync());
+            var articles = await _context.Article.ToListAsync();
+            return View(articles.OrderByDescending(e => e.CreatedAt));
+        }
+
+        public async Task<IActionResult> MyPosts()
+        {
+            var articles = await _context.Article.ToListAsync();
+            return View(articles.Where(u => u.UserId.Equals(User.FindFirst(ClaimTypes.NameIdentifier).Value)).OrderByDescending(e => e.CreatedAt));
         }
 
         // GET: Articles/Details/5
@@ -49,6 +60,7 @@ namespace GamesForum.Controllers
             return View();
         }
 
+
         // POST: Articles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -56,7 +68,15 @@ namespace GamesForum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ArticleId,UserId,GameId,ArticlePhoto,Title,Content,CreatedAt")] Article article)
         {
-            if (ModelState.IsValid)
+            article.UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            article.CreatedAt = DateTime.Now;
+
+            var query = from state in ModelState.Values
+                        from error in state.Errors
+                        select error.ErrorMessage;
+            var errorList = query.ToList();
+
+            if (errorList.Count == 1 && errorList[0].Equals("The UserId field is required."))
             {
                 _context.Add(article);
                 await _context.SaveChangesAsync();
