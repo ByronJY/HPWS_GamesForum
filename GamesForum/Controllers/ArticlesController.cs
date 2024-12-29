@@ -26,7 +26,8 @@ namespace GamesForum.Controllers
         // GET: Articles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Article.ToListAsync());
+            var articles = await _context.Article.ToListAsync();
+            return View(articles.OrderByDescending(e => e.CreatedAt));
         }
 
         // GET: Articles/Details/5

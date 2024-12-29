@@ -1,9 +1,13 @@
 ﻿@model GamesForum.Models.Article
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@using System.Security.Claims;
 
 @{
     ViewData["Title"] = "刪除文章";
 }
 
+@if (SignInManager.IsSignedIn(User) &&　User.FindFirst(ClaimTypes.NameIdentifier).Value.Equals(Model.UserId)){
 <h1 class="text-white">刪除文章</h1>
 
 <div class="mb-5">
@@ -42,4 +46,9 @@
     </form>
     
 </div>
+}
+else
+{
+<h1 class="text-danger font-weight-bold my-5">沒有權限</h1>
+}
 <a asp-action="Index">Back to List</a>

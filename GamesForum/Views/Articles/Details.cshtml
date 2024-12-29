@@ -1,4 +1,6 @@
 ﻿@model GamesForum.Models.Article
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 @using System.Security.Claims;
 
 
@@ -11,7 +13,7 @@
         <h2 class="text-white mb-0">@Html.DisplayFor(model => model.Title)</h2>
 
         <!-- 編輯文章按鈕 -->
-        @if (User.FindFirst(ClaimTypes.NameIdentifier).Value.Equals(Model.UserId)){
+        @if (SignInManager.IsSignedIn(User) &&　User.FindFirst(ClaimTypes.NameIdentifier).Value.Equals(Model.UserId)){
         <div class="d-flex justify-content-end">
             <a class="btn btn-primary d-flex align-items-end me-1" asp-action="Edit" asp-route-id="@Model.ArticleId">
                 <i class="bi bi-pencil-square me-1"></i>
