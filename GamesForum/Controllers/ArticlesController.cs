@@ -30,6 +30,12 @@ namespace GamesForum.Controllers
             return View(articles.OrderByDescending(e => e.CreatedAt));
         }
 
+        public async Task<IActionResult> MyPosts()
+        {
+            var articles = await _context.Article.ToListAsync();
+            return View(articles.Where(u => u.UserId.Equals(User.FindFirst(ClaimTypes.NameIdentifier).Value)).OrderByDescending(e => e.CreatedAt));
+        }
+
         // GET: Articles/Details/5
         public async Task<IActionResult> Details(int? id)
         {

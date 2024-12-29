@@ -1,0 +1,36 @@
+﻿@model IEnumerable<GamesForum.Models.Article>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@{
+    ViewData["Title"] = "我的貼文";
+}
+
+@if (SignInManager.IsSignedIn(User)){
+<div class="container my-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-white mb-0">@ViewData["Title"]</h2>
+        <!-- 新增文章按鈕 -->
+        <a class="btn btn-success d-flex align-items-center" asp-action="Create">
+            <i class="bi bi-plus-lg me-1"></i> 新增文章
+        </a>
+    </div>
+
+
+    <div id="posts">
+    @foreach (var item in Model) {
+        <a class="card mb-4 shadow-lg text-decoration-none border-0" asp-action="Details" asp-route-id="@item.ArticleId">
+            <div class="card-header bg-secondary text-white">@Html.DisplayFor(modelItem => item.CreatedAt)</div>
+            <div class="card-body">
+                <h5 class="card-title text-black">@Html.DisplayFor(modelItem => item.Title)</h5>
+                <p class="card-text text-black">@Html.DisplayFor(modelItem => item.Content)</p>
+            </div>
+        </a>
+    }
+
+    </div>
+</div>
+}else{
+<h1 class="text-danger font-weight-bold my-5">尚未登入</h1>
+}
